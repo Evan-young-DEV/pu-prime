@@ -10,24 +10,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const formContainer = document.getElementById('formContainer');
     const formClose = document.getElementById('formClose');
 
+    // Form always open on load
+    formContainer.classList.add('active');
+    formToggle.style.display = 'none';
+
     formToggle.addEventListener('click', function() {
         formContainer.classList.add('active');
         formToggle.style.display = 'none';
     });
 
     formClose.addEventListener('click', function() {
+        // Reopen after short delay - always keep visible
         formContainer.classList.remove('active');
         formToggle.style.display = 'flex';
+        setTimeout(function() {
+            formContainer.classList.add('active');
+            formToggle.style.display = 'none';
+        }, 3000);
     });
 
-    // Close form when clicking outside
+    // Do NOT close on outside click - keep form always visible
     document.addEventListener('click', function(e) {
-        if (!formContainer.contains(e.target) && !formToggle.contains(e.target)) {
-            if (formContainer.classList.contains('active')) {
-                formContainer.classList.remove('active');
-                formToggle.style.display = 'flex';
-            }
-        }
+        // disabled: form stays open
     });
 
     // ========================================
@@ -114,6 +118,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log('Form Data:', formData);
 
+        // Save to localStorage
+        const savedData = JSON.parse(localStorage.getItem('pu_prime_leads') || '[]');
+        savedData.push(formData);
+        localStorage.setItem('pu_prime_leads', JSON.stringify(savedData));
+        console.log('Saved! Total leads:', savedData.length);
+
         // Show success message
         showSuccessMessage();
     });
@@ -194,28 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ========================================
-    // Scroll to Top Button
-    // ========================================
-    const topButton = document.querySelector('.quick-btn.top');
-
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 500) {
-            topButton.style.opacity = '1';
-            topButton.style.visibility = 'visible';
-        } else {
-            topButton.style.opacity = '0';
-            topButton.style.visibility = 'hidden';
-        }
-    });
-
-    topButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
 
     // ========================================
     // Animated Counter
@@ -392,15 +380,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ========================================
-    // Auto-open form after delay (optional)
-    // ========================================
-    setTimeout(() => {
-        if (!formContainer.classList.contains('active') && !sessionStorage.getItem('formShown')) {
-            formContainer.classList.add('active');
-            formToggle.style.display = 'none';
-            sessionStorage.setItem('formShown', 'true');
-        }
-    }, 5000);
 
     console.log('PU Prime website initialized successfully!');
 });
