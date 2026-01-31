@@ -640,8 +640,8 @@ img {
 
 .accounts-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     align-items: start;
 }
 
@@ -1476,5 +1476,113 @@ img {
 
     .app-buttons {
         flex-direction: column;
+    }
+}
+
+/* ========================================
+   Account Comparison Table
+   ======================================== */
+.account-comparison {
+    margin-top: 80px;
+    padding: 40px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.comparison-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-white);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.comparison-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 16px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.comparison-table th {
+    background: rgba(0, 82, 255, 0.1);
+    color: var(--text-white);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.comparison-table th.highlight {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.comparison-table td {
+    color: var(--text-light);
+}
+
+.comparison-table td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.comparison-table td.highlight {
+    background: rgba(0, 82, 255, 0.05);
+    color: var(--primary-blue);
+    font-weight: 500;
+}
+
+.comparison-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.comparison-table i.fa-check {
+    color: var(--accent-green);
+    font-size: 16px;
+}
+
+@media (max-width: 1200px) {
+    .accounts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .accounts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .account-comparison {
+        padding: 20px;
+        margin-top: 40px;
+    }
+
+    .comparison-title {
+        font-size: 24px;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: 12px 10px;
+        font-size: 12px;
     }
 }
